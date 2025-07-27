@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Us - Dream Catchers</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: url('about-bg.jpg') no-repeat center center/cover;
+      color: #fff;
+      line-height: 1.7;
+    }
+
+    /* Hamburger Menu Styles */
+    .hamburger {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      width: 30px;
+      height: 22px;
+      cursor: pointer;
+      z-index: 1001;
+    }
+
+    .hamburger span {
+      display: block;
+      height: 4px;
+      width: 100%;
+      background: #ffffff;
+      margin-bottom: 5px;
+      border-radius: 2px;
+      transition: 0.3s;
+    }
+
+    /* Transform hamburger to X when active */
+    .hamburger.active span:nth-child(1) {
+      transform: rotate(45deg) translate(5px, 5px);
+    }
+    .hamburger.active span:nth-child(2) {
+      opacity: 0;
+    }
+    .hamburger.active span:nth-child(3) {
+      transform: rotate(-45deg) translate(5px, -5px);
+    }
+
+    /* Side Menu */
+    .side-menu {
+      position: fixed;
+      top: 0;
+      left: -250px;
+      width: 250px;
+      height: 100%;
+      background: rgba(0,0,0,0.9);
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      padding-top: 80px;
+      transition: left 0.3s ease;
+      z-index: 1000;
+    }
+
+    .side-menu.active {
+      left: 0;
+    }
+
+    .side-menu a {
+      color: #fff;
+      text-decoration: none;
+      padding: 15px 20px;
+      font-size: 1.2rem;
+      transition: background 0.3s;
+    }
+
+    .side-menu a:hover {
+      background: #ff4b2b;
+    }
+
+    /* About Section */
+    .about-container {
+      max-width: 1000px;
+      margin: 100px auto 50px;
+      padding: 20px;
+      text-align: center;
+      background: rgba(0, 0, 0, 0.6);
+      border-radius: 10px;
+    }
+
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 20px;
+      color: #ffcc99;
+    }
+
+    .about-text {
+      text-align: left;
+      font-size: 1.1rem;
+      margin-bottom: 40px;
+    }
+
+    .features {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+    }
+
+    .feature-card {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      padding: 20px;
+      flex: 1 1 calc(30% - 20px);
+      max-width: 300px;
+      transition: transform 0.3s ease;
+      text-align: center;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-5px);
+      background: rgba(255, 255, 255, 0.15);
+    }
+
+    .feature-card h3 {
+      font-size: 1.5rem;
+      margin-bottom: 10px;
+      color: #ffcc99;
+    }
+
+    footer {
+      color: #302f2f;
+      text-align: center;
+      padding: 15px;
+      font-size: 0.9rem;
+      margin-top: 50px;
+    }
+
+    @media (max-width: 768px) {
+      .feature-card {
+        flex: 1 1 100%;
+        max-width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Hamburger Menu -->
+  <div class="hamburger" id="hamburger">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+
+  <!-- Side Navigation Menu -->
+  <nav class="side-menu" id="sideMenu">
+    <a href="index.html">Home</a>
+    <a href="blog.html">Blogs</a>
+    <a href="destinations.html">Destinations</a>
+    <a href="explore.html">Explore</a>
+    <a href="about.html">About</a>
+  </nav>
+
+  <div class="about-container">
+    <h1>About Dream Catchers</h1>
+    <div class="about-text">
+      <p>
+        At <strong>Dream Catchers</strong>, we believe travel is not just about visiting destinations; it’s about creating memories that last a lifetime. 
+        Since our inception, we have curated exceptional travel experiences tailored to individual preferences and passions.
+      </p>
+      <p>
+        From luxury getaways to adventurous mountain treks, from serene beaches to vibrant city escapes, Dream Catchers is your trusted partner in exploring the world with style and comfort.  
+      </p>
+      <p>
+        Our team of travel experts is dedicated to bringing you handpicked packages, exclusive deals, and personalized recommendations. Whether you’re looking for a romantic holiday, a family vacation, or a solo adventure, we ensure every detail is taken care of.
+      </p>
+    </div>
+
+    <div class="features">
+      <div class="feature-card">
+        <h3>Our Vision</h3>
+        <p>To redefine travel experiences by offering personalized and unique journeys for every traveler.</p>
+      </div>
+      <div class="feature-card">
+        <h3>Our Services</h3>
+        <p>Luxury packages, guided tours, travel planning, hotel bookings, and unforgettable adventures worldwide.</p>
+      </div>
+      <div class="feature-card">
+        <h3>Why Choose Us?</h3>
+        <p>Experienced travel agents, curated destinations, best price guarantee, and 24/7 customer support.</p>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    &copy; 2025 Dream Catchers. All rights reserved.
+  </footer>
+
+  <!-- JavaScript for Menu -->
+  <script>
+    const hamburger = document.getElementById('hamburger');
+    const sideMenu = document.getElementById('sideMenu');
+
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('active');
+      sideMenu.classList.toggle('active');
+    });
+  </script>
+</body>
+</html>

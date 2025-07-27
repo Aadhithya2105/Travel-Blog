@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dream Catchers - Premium Destinations</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: url('travel-bg.jpg') no-repeat center center fixed;
+      background-size: cover;
+      color: #333;
+    }
+
+    /* Hamburger Menu */
+    .hamburger {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      width: 30px;
+      height: 22px;
+      cursor: pointer;
+      z-index: 1001;
+    }
+    .hamburger span {
+      display: block;
+      height: 4px;
+      width: 100%;
+      background: #fff;
+      margin-bottom: 5px;
+      border-radius: 2px;
+      transition: 0.3s;
+    }
+    .hamburger.active span:nth-child(1) {
+      transform: rotate(45deg) translate(5px, 5px);
+    }
+    .hamburger.active span:nth-child(2) {
+      opacity: 0;
+    }
+    .hamburger.active span:nth-child(3) {
+      transform: rotate(-45deg) translate(5px, -5px);
+    }
+
+    /* Side Menu */
+    .side-menu {
+      position: fixed;
+      top: 0;
+      left: -250px;
+      width: 250px;
+      height: 100%;
+      background: rgba(0,0,0,0.9);
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      padding-top: 80px;
+      transition: left 0.3s ease;
+      z-index: 1000;
+    }
+    .side-menu.active {
+      left: 0;
+    }
+    .side-menu a {
+      color: #fff;
+      text-decoration: none;
+      padding: 15px 20px;
+      font-size: 1.2rem;
+      transition: background 0.3s;
+    }
+    .side-menu a:hover {
+      background: #ff4b2b;
+    }
+
+    .content {
+      padding: 40px 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 2.5rem;
+      margin-bottom: 40px;
+      color: #fff;
+      text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.6);
+    }
+
+    .destination-card {
+      display: flex;
+      flex-direction: row;
+      background: rgba(255, 255, 255, 0.9);
+      margin-bottom: 30px;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .destination-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+    }
+
+    .destination-card img {
+      width: 40%;
+      height: auto;
+      object-fit: cover;
+    }
+
+    .destination-info {
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .destination-info h2 {
+      font-size: 1.8rem;
+      color: #007BFF;
+      margin-bottom: 10px;
+    }
+
+    .details {
+      font-size: 0.95rem;
+      color: #444;
+      line-height: 1.6;
+      margin-bottom: 10px;
+    }
+
+    .highlight {
+      background: #e7f1ff;
+      padding: 10px;
+      border-radius: 6px;
+      margin-top: 10px;
+      font-size: 0.95rem;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    }
+
+    .book-btn {
+      margin-top: 15px;
+      padding: 10px 15px;
+      background: #007BFF;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: background 0.3s ease;
+      align-self: flex-start;
+    }
+
+    .book-btn:hover {
+      background: #0056b3;
+    }
+
+    /* Modal Styles */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.6);
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal-content {
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      max-width: 400px;
+      width: 90%;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      animation: fadeIn 0.3s ease;
+    }
+
+    .modal-content h3 {
+      margin-bottom: 15px;
+      color: #007BFF;
+    }
+
+    .modal-content label {
+      display: block;
+      margin-top: 10px;
+      font-size: 0.9rem;
+      color: #333;
+    }
+
+    .modal-content input, 
+    .modal-content textarea {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 0.9rem;
+    }
+
+    .close-btn, .submit-btn {
+      padding: 8px 12px;
+      border: none;
+      border-radius: 5px;
+      margin-top: 15px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .close-btn {
+      background: #ccc;
+      color: #000;
+    }
+
+    .close-btn:hover {
+      background: #999;
+    }
+
+    .submit-btn {
+      background: #007BFF;
+      color: #fff;
+    }
+
+    .submit-btn:hover {
+      background: #0056b3;
+    }
+
+    .confirmation {
+      display: none;
+      margin-top: 10px;
+      color: green;
+      font-weight: bold;
+      font-size: 0.9rem;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.9); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    @media (max-width: 768px) {
+      .destination-card {
+        flex-direction: column;
+      }
+      .destination-card img {
+        width: 100%;
+        height: 220px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Hamburger -->
+  <div class="hamburger" id="hamburger">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+
+  <!-- Side Menu -->
+  <nav class="side-menu" id="sideMenu">
+    <a href="index.html">Home</a>
+    <a href="blog.html">Blogs</a>
+    <a href="destinations.html">Destinations</a>
+    <a href="explore.html">Explore</a>
+    <a href="about.html">About</a>
+  </nav>
+
+  <div class="content">
+    <h1>Our Exclusive Destinations and Coverages</h1>
+
+    <!-- PARIS -->
+    <div class="destination-card">
+      <img src="paris.jpg" alt="Paris">
+      <div class="destination-info">
+        <h2>Paris- France</h2>
+        <p class="details"><strong>Travel Dates:</strong> 15th Oct 2025 – 22nd Oct 2025</p>
+        <p class="details"><strong>Price:</strong> $2,400 per person (all inclusive)</p>
+        <p class="details"><strong>Agent:</strong> Emily Johnson (DreamCatchers Europe Specialist)</p>
+        <div class="highlight">
+          <strong>Best Package:</strong> Eiffel Romance Tour (Includes Seine River Cruise, Louvre Priority Entry & Wine Tasting)<br>
+          <strong>Stays & Hotels:</strong> Hotel Le Meurice (5-star), Ritz Paris
+        </div>
+        <button class="book-btn" onclick="openBooking('Paris, France', '$2,400', '15th Oct 2025 – 22nd Oct 2025')">Book Now</button>
+      </div>
+    </div>
+
+    <!-- BALI -->
+    <div class="destination-card">
+      <img src="bali.jpg" alt="Bali">
+      <div class="destination-info">
+        <h2>Bali- Indonesia</h2>
+        <p class="details"><strong>Travel Dates:</strong> 5th Nov 2025 – 12th Nov 2025</p>
+        <p class="details"><strong>Price:</strong> $1,750 per person</p>
+        <p class="details"><strong>Agent:</strong> Arjun Mehra (Asian Adventures Expert)</p>
+        <div class="highlight">
+          <strong>Best Package:</strong> Ubud & Beach Luxury Escape (Includes Temple Tours, Hidden Waterfalls & Sunset Dinner)<br>
+          <strong>Stays & Hotels:</strong> The Laguna Resort & Spa, Four Seasons Sayan
+        </div>
+        <button class="book-btn" onclick="openBooking('Bali, Indonesia', '$1,750', '5th Nov 2025 – 12th Nov 2025')">Book Now</button>
+      </div>
+    </div>
+
+    <!-- SWISS ALPS -->
+    <div class="destination-card">
+      <img src="switzerland.jpg" alt="Swiss Alps">
+      <div class="destination-info">
+        <h2>Swiss Alps- Switzerland</h2>
+        <p class="details"><strong>Travel Dates:</strong> 20th Dec 2025 – 28th Dec 2025</p>
+        <p class="details"><strong>Price:</strong> $3,200 per person</p>
+        <p class="details"><strong>Agent:</strong> Lucas Weber (Europe Mountain Specialist)</p>
+        <div class="highlight">
+          <strong>Best Package:</strong> Alpine Adventure & Glacier Express Tour (Includes Ski Passes, Lake Lucerne Cruise)<br>
+          <strong>Stays & Hotels:</strong> The Chedi Andermatt, Kulm Hotel St. Moritz
+        </div>
+        <button class="book-btn" onclick="openBooking('Swiss Alps, Switzerland', '$3,200', '20th Dec 2025 – 28th Dec 2025')">Book Now</button>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Booking Modal -->
+  <div class="modal" id="bookingModal">
+    <div class="modal-content">
+      <h3>Book Your Trip</h3>
+      <form id="bookingForm" onsubmit="return submitBooking()">
+        <label>Destination:</label>
+        <input type="text" id="destination" readonly>
+
+        <label>Price:</label>
+        <input type="text" id="price" readonly>
+
+        <label>Travel Dates:</label>
+        <input type="text" id="dates" readonly>
+
+        <label>Your Name:</label>
+        <input type="text" placeholder="Enter your name" required>
+
+        <label>Email:</label>
+        <input type="email" placeholder="Enter your email" required>
+
+        <label>Message:</label>
+        <textarea placeholder="Any special requests?"></textarea>
+
+        <button type="submit" class="submit-btn">Submit Booking</button>
+        <button type="button" class="close-btn" onclick="closeBooking()">Close</button>
+        <div class="confirmation" id="confirmationMsg">Booking request sent! We will contact you soon.</div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    // Hamburger menu functionality
+    const hamburger = document.getElementById('hamburger');
+    const sideMenu = document.getElementById('sideMenu');
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('active');
+      sideMenu.classList.toggle('active');
+    });
+
+    // Booking modal functions
+    function openBooking(destination, price, dates) {
+      document.getElementById('destination').value = destination;
+      document.getElementById('price').value = price;
+      document.getElementById('dates').value = dates;
+      document.getElementById('bookingModal').style.display = 'flex';
+    }
+
+    function closeBooking() {
+      document.getElementById('bookingModal').style.display = 'none';
+      document.getElementById('confirmationMsg').style.display = 'none';
+    }
+
+    function submitBooking() {
+      document.getElementById('confirmationMsg').style.display = 'block';
+      return false; // Prevent actual form submission
+    }
+
+    window.onclick = function(event) {
+      if (event.target == document.getElementById('bookingModal')) {
+        closeBooking();
+      }
+    }
+  </script>
+</body>
+</html>
